@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Commodity Market for Indigenous Nigeria</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .landing-container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+
+        .logo-section {
+            margin-bottom: 60px;
+        }
+
+        .logo-icon {
+            font-size: 100px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .owner-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            display: inline-block;
+            margin-bottom: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .owner-info h2 {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .owner-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 20px 50px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: #52b788;
+            color: #1b4332;
+        }
+
+        .btn-primary:hover {
+            background: #40916c;
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .commodities-preview {
+            margin-bottom: 50px;
+        }
+
+        .commodities-preview h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .commodity-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="landing-container">
+        <div class="logo-section">
+            <span class="logo-icon">🌾</span>
+            <h1>Global Commodity Market</h1>
+            <p class="subtitle">for Indigenous Nigeria</p>
+        </div>
+        
+        <div class="owner-info">
+            <h2>Owner</h2>
+            <p class="owner-name">Olawale Abdul-Ganiyu</p>
+            <p>Managing Director</p>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">📊</span>
+                <h3>Smart Trading</h3>
+                <p>Buy low, sell high with our dynamic pricing algorithm</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">💰</span>
+                <h3>Secure Wallet</h3>
+                <p>Manage your funds with our integrated wallet system</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🏦</span>
+                <h3>Easy Transfers</h3>
+                <p>Transfer to any bank including Opay, PalmPay, Moniepoint</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📈</span>
+                <h3>Market Analytics</h3>
+                <p>Track trends and make informed investment decisions</p>
+            </div>
+        </div>
+        
+        <div class="commodities-preview">
+            <h3>Available Commodities</h3>
+            <div class="commodity-tags">
+                <span class="tag">🍚 Rice (18 varieties)</span>
+                <span class="tag">🫘 Beans (7 varieties)</span>
+                <span class="tag">🟡 Garri (4 varieties)</span>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <a href="customer/login.html" class="btn btn-primary">
+                <span>👤</span> Customer Portal
+            </a>
+            <a href="admin/cover.html" class="btn btn-secondary">
+                <span>🔐</span> Admin Portal
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 Global Commodity Market for Indigenous Nigeria. All rights reserved.</p>
+            <p>Empowering Local Commerce Through Technology</p>
+        </div>
+    </div>
+</body>
+</html>

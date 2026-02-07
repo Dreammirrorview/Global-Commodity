@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Global Commodity Market</title>
+    <link rel="stylesheet" href="../styles/customer.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🌾</span>
+                <h2>Customer Portal</h2>
+                <p class="welcome-text">Welcome back!</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active" onclick="showSection('overview')">
+                    <span>📊</span> Overview
+                </a>
+                <a href="#market" class="nav-item" onclick="showSection('market')">
+                    <span>🛒</span> Market
+                </a>
+                <a href="#planting" class="nav-item" onclick="showSection('planting')">
+                    <span>🌱</span> Planting
+                </a>
+                <a href="#portfolio" class="nav-item" onclick="showSection('portfolio')">
+                    <span>💼</span> Portfolio
+                </a>
+                <a href="#wallet" class="nav-item" onclick="showSection('wallet')">
+                    <span>💰</span> Wallet
+                </a>
+                <a href="#transfer" class="nav-item" onclick="showSection('transfer')">
+                    <span>🏦</span> Transfer
+                </a>
+                <a href="#transactions" class="nav-item" onclick="showSection('transactions')">
+                    <span>📋</span> History
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="customer-info">
+                    <p><span>👤</span> <span id="customerName">Loading...</span></p>
+                    <p><span>📧</span> <span id="customerEmail">Loading...</span></p>
+                </div>
+                <button onclick="logout()" class="btn-logout">
+                    <span>🚪</span> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header class="top-header">
+                <h1>Dashboard</h1>
+                <div class="header-info">
+                    <span id="currentDate"></span>
+                    <button onclick="refreshData()" class="btn-refresh">
+                        <span>🔄</span> Refresh
+                    </button>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <div id="overview" class="section active">
+                <div class="wallet-card">
+                    <div class="wallet-header">
+                        <h2>💰 Wallet Balance</h2>
+                        <span class="wallet-status">Active</span>
+                    </div>
+                    <div class="wallet-balance">
+                        <span id="walletBalance">₦0.00</span>
+                    </div>
+                    <div class="wallet-actions">
+                        <button onclick="showSection('transfer')" class="btn-deposit">
+                            <span>➕</span> Add Funds
+                        </button>
+                        <button onclick="showSection('transfer')" class="btn-withdraw">
+                            <span>➖</span> Withdraw
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-info">
+                            <h3 id="totalInvestments">₦0.00</h3>
+                            <p>Total Investments</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-info">
+                            <h3 id="totalProfit">₦0.00</h3>
+                            <p>Total Profit/Loss</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏪</div>
+                        <div class="stat-info">
+                            <h3 id="ownedCommodities">0</h3>
+                            <p>Owned Commodities</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💳</div>
+                        <div class="stat-info">
+                            <h3 id="monthlyTransactions">0</h3>
+                            <p>This Month</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="market-trends">
+                    <h3>📈 Market Overview</h3>
+                    <div class="trend-cards">
+                        <div class="trend-card">
+                            <h4>🍚 Rice Market</h4>
+                            <p id="riceTrend">Loading...</p>
+                        </div>
+                        <div class="trend-card">
+                            <h4>🫘 Beans Market</h4>
+                            <p id="beansTrend">Loading...</p>
+                        </div>
+                        <div class="trend-card">
+                            <h4>🟡 Garri Market</h4>
+                            <p id="garriTrend">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Section -->
+            <div id="market" class="section">
+                <div class="section-header">
+                    <h2>🛒 Commodity Market</h2>
+                    <div class="market-info">
+                        <p>💡 Tip: Buy when prices are low, sell when prices are high!</p>
+                    </div>
+                </div>
+
+                <div class="market-filters">
+                    <button class="filter-btn active" onclick="filterMarket('all')">All</button>
+                    <button class="filter-btn" onclick="filterMarket('rice')">🍚 Rice</button>
+                    <button class="filter-btn" onclick="filterMarket('beans')">🫘 Beans</button>
+                    <button class="filter-btn" onclick="filterMarket('garri')">🟡 Garri</button>
+                </div>
+
+                <div class="commodity-grid" id="marketGrid">
+                    <!-- Commodities will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Portfolio Section -->
+            <div id="portfolio" class="section">
+                <div class="section-header">
+                    <h2>💼 My Portfolio</h2>
+                    <button onclick="refreshPortfolio()" class="btn-refresh">
+                        <span>🔄</span> Refresh Portfolio
+                    </button>
+                </div>
+
+                <div class="portfolio-summary">
+                    <div class="summary-card">
+                        <h3>Total Value</h3>
+                        <p id="portfolioValue">₦0.00</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Invested Amount</h3>
+                        <p id="portfolioInvested">₦0.00</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Profit/Loss</h3>
+                        <p id="portfolioProfit">₦0.00</p>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Commodity</th>
+                                <th>Quantity</th>
+                                <th>Avg. Price</th>
+                                <th>Current Price</th>
+                                <th>Value</th>
+                                <th>Profit/Loss</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="portfolioTableBody">
+                            <tr>
+                                <td colspan="7" class="no-data">No commodities in portfolio</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Wallet Section -->
+            <div id="wallet" class="section">
+                <div class="section-header">
+                    <h2>💰 Wallet Management</h2>
+                </div>
+
+                <div class="wallet-details">
+                    <div class="wallet-info-card">
+                        <h3>Available Balance</h3>
+                        <p id="walletBalanceLarge">₦0.00</p>
+                    </div>
+                    <div class="wallet-info-card">
+                        <h3>Pending Withdrawals</h3>
+                        <p id="pendingWithdrawals">₦0.00</p>
+                    </div>
+                </div>
+
+                <div class="wallet-actions-grid">
+                    <div class="action-card">
+                        <h3>➕ Add Funds</h3>
+                        <p>Add money to your wallet for trading</p>
+                        <button onclick="openDepositModal()" class="btn-primary">Deposit</button>
+                    </div>
+                    <div class="action-card">
+                        <h3>➖ Withdraw Funds</h3>
+                        <p>Withdraw money to your bank account</p>
+                        <button onclick="openWithdrawModal()" class="btn-secondary">Withdraw</button>
+                    </div>
+                    <div class="action-card">
+                        <h3>📊 Wallet History</h3>
+                        <p>View all wallet transactions</p>
+                        <button onclick="showSection('transactions')" class="btn-view">View History</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transfer Section -->
+            <div id="transfer" class="section">
+                <div class="section-header">
+                    <h2>🏦 Bank Transfer</h2>
+                </div>
+
+                <div class="transfer-container">
+                    <div class="transfer-tabs">
+                        <button class="tab-btn active" onclick="showTransferTab('deposit')">Deposit to Wallet</button>
+                        <button class="tab-btn" onclick="showTransferTab('withdraw')">Withdraw to Bank</button>
+                        <button class="tab-btn" onclick="showTransferTab('transfer')">Transfer to Another</button>
+                    </div>
+
+                    <!-- Deposit Form -->
+                    <div id="depositForm" class="transfer-form active">
+                        <div class="bank-info">
+                            <h3>📝 Deposit Instructions</h3>
+                            <p>Transfer funds to your wallet using the details below:</p>
+                            <div class="bank-details">
+                                <p><strong>Bank Name:</strong> Global Commodity Market Bank</p>
+                                <p><strong>Account Name:</strong> GCM Customer Wallet</p>
+                                <p><strong>Account Number:</strong> 1234567890</p>
+                                <p><strong>Amount:</strong> Enter the amount you wish to deposit</p>
+                            </div>
+                        </div>
+                        <form id="depositFormSubmit">
+                            <div class="form-group">
+                                <label>Amount (₦) *</label>
+                                <input type="number" name="amount" required min="100" step="100" 
+                                       placeholder="Enter amount to deposit">
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Reference *</label>
+                                <input type="text" name="reference" required 
+                                       placeholder="Enter your transaction reference">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea name="description" rows="3" 
+                                          placeholder="Enter description (optional)"></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                <span>➕</span> Submit Deposit Request
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Withdraw Form -->
+                    <div id="withdrawForm" class="transfer-form">
+                        <div class="bank-info">
+                            <h3>💸 Withdrawal Information</h3>
+                            <p>Your registered bank details will be used for withdrawals</p>
+                            <div class="bank-details">
+                                <p><strong>Bank Name:</strong> <span id="withdrawBankName">Loading...</span></p>
+                                <p><strong>Account Number:</strong> <span id="withdrawAccountNumber">Loading...</span></p>
+                                <p><strong>Account Name:</strong> <span id="withdrawAccountName">Loading...</span></p>
+                                <p><strong>Available Balance:</strong> <span id="withdrawAvailableBalance">₦0.00</span></p>
+                            </div>
+                        </div>
+                        <form id="withdrawFormSubmit">
+                            <div class="form-group">
+                                <label>Amount to Withdraw (₦) *</label>
+                                <input type="number" name="amount" required min="100" step="100" 
+                                       placeholder="Enter amount to withdraw">
+                            </div>
+                            <div class="form-group">
+                                <label>Withdrawal Reason *</label>
+                                <select name="reason" required>
+                                    <option value="">Select reason</option>
+                                    <option value="personal">Personal Use</option>
+                                    <option value="business">Business Purpose</option>
+                                    <option value="emergency">Emergency</option>
+                                    <option value="investment">Investment</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea name="description" rows="3" 
+                                          placeholder="Enter additional details (optional)"></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                <span>➖</span> Request Withdrawal
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Transfer Form -->
+                    <div id="transferForm" class="transfer-form">
+                        <form id="transferFormSubmit">
+                            <div class="form-group">
+                                <label>Recipient Bank Name *</label>
+                                <select name="bankName" required>
+                                    <option value="">Select recipient bank</option>
+                                    <option value="Access Bank">Access Bank</option>
+                                    <option value="First Bank">First Bank</option>
+                                    <option value="Guaranty Trust Bank">Guaranty Trust Bank (GTB)</option>
+                                    <option value="United Bank for Africa">United Bank for Africa (UBA)</option>
+                                    <option value="Zenith Bank">Zenith Bank</option>
+                                    <option value="Wema Bank">Wema Bank</option>
+                                    <option value="Sterling Bank">Sterling Bank</option>
+                                    <option value="Fidelity Bank">Fidelity Bank</option>
+                                    <option value="Union Bank">Union Bank</option>
+                                    <option value="EcoBank">EcoBank</option>
+                                    <option value="Opay">Opay</option>
+                                    <option value="PalmPay">PalmPay</option>
+                                    <option value="Moniepoint">Moniepoint</option>
+                                    <option value="Kuda Bank">Kuda Bank</option>
+                                    <option value="Carbon">Carbon</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Recipient Account Number *</label>
+                                <input type="text" name="accountNumber" required 
+                                       placeholder="Enter recipient account number" pattern="[0-9]{10}" maxlength="10">
+                            </div>
+                            <div class="form-group">
+                                <label>Recipient Account Name *</label>
+                                <input type="text" name="accountName" required 
+                                       placeholder="Enter recipient account name">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount (₦) *</label>
+                                <input type="number" name="amount" required min="100" step="100" 
+                                       placeholder="Enter amount to transfer">
+                            </div>
+                            <div class="form-group">
+                                <label>Description *</label>
+                                <textarea name="description" rows="3" required 
+                                          placeholder="Enter transfer description"></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                <span>🏦</span> Transfer Funds
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transactions Section -->
+            <div id="transactions" class="section">
+                <div class="section-header">
+                    <h2>📋 Transaction History</h2>
+                    <div class="transaction-filters">
+                        <input type="date" id="transactionDateFilter" onchange="filterTransactions()">
+                        <select id="transactionTypeFilter" onchange="filterTransactions()">
+                            <option value="all">All Types</option>
+                            <option value="credit">Credit</option>
+                            <option value="debit">Debit</option>
+                            <option value="purchase">Purchase</option>
+                            <option value="sale">Sale</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionTableBody">
+                            <tr>
+                                <td colspan="5" class="no-data">No transactions yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buy Modal -->
+    <div id="buyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBuyModal()">&times;</span>
+            <div id="buyModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Sell Modal -->
+    <div id="sellModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSellModal()">&times;</span>
+            <div id="sellModalBody"></div>
+        </div>
+    </div>
+
+    <script src="../js/customer-dashboard.js"></script>
+</body>
+</html>

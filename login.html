@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Global Commodity Market</title>
+    <link rel="stylesheet" href="../styles/admin.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <span class="logo-icon">🌾</span>
+                <h1>Admin Login</h1>
+                <p>Global Commodity Market for Indigenous Nigeria</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">
+                        <span>👤</span> Username
+                    </label>
+                    <input type="text" id="username" name="username" required 
+                           placeholder="Enter admin username" autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <span>🔒</span> Password
+                    </label>
+                    <input type="password" id="password" name="password" required 
+                           placeholder="Enter admin password" autocomplete="current-password">
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span>Remember me</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    <span>🚀</span> Login to Dashboard
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Forgot password? Contact system administrator</p>
+                <a href="cover.html" class="back-link">← Back to Cover Page</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Admin credentials (in production, this should be on a secure server)
+        const ADMIN_CREDENTIALS = {
+            username: 'admin',
+            password: 'admin123'
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === ADMIN_CREDENTIALS.username && 
+                password === ADMIN_CREDENTIALS.password) {
+                // Store admin session
+                localStorage.setItem('adminLoggedIn', 'true');
+                localStorage.setItem('adminUsername', username);
+                
+                alert('Login successful! Redirecting to dashboard...');
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Invalid username or password. Please try again.');
+            }
+        });
+
+        // Check if already logged in
+        if (localStorage.getItem('adminLoggedIn') === 'true') {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

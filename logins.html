@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login - Global Commodity Market</title>
+    <link rel="stylesheet" href="../styles/customer.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <span class="logo-icon">🌾</span>
+                <h1>Welcome Back</h1>
+                <p>Global Commodity Market for Indigenous Nigeria</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">
+                        <span>📧</span> Email Address
+                    </label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="Enter your email" autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <span>🔒</span> Password
+                    </label>
+                    <input type="password" id="password" name="password" required 
+                           placeholder="Enter your password" autocomplete="current-password">
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" onclick="forgotPassword()" class="forgot-link">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    <span>🚀</span> Login to Dashboard
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Don't have an account? <a href="register.html" class="register-link">Register here</a></p>
+                <a href="../admin/cover.html" class="back-link">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Check pending registrations
+            const pendingRegistrations = JSON.parse(localStorage.getItem('pendingRegistrations') || '[]');
+            const pendingUser = pendingRegistrations.find(u => u.email === email);
+            
+            if (pendingUser) {
+                alert('Your registration is still pending approval from the admin. Please wait for approval.');
+                return;
+            }
+            
+            // Check active customers
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            const customer = customers.find(c => c.email === email && c.password === password);
+            
+            if (customer) {
+                // Check account status
+                if (customer.status !== 'active') {
+                    alert('Your account is not active. Please contact admin for assistance.');
+                    return;
+                }
+                
+                // Store customer session
+                localStorage.setItem('customerLoggedIn', 'true');
+                localStorage.setItem('customerId', customer.id);
+                localStorage.setItem('customerName', customer.fullName);
+                
+                alert('Login successful! Redirecting to dashboard...');
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Invalid email or password. Please try again.');
+            }
+        });
+
+        function forgotPassword() {
+            alert('Password reset:\n\nTo reset your password, please contact our support team at:\nEmail: support@gcmnigeria.com\nPhone: +234 XXX XXX XXXX\n\nProvide your registered email address and account number for verification.');
+        }
+
+        // Check if already logged in
+        if (localStorage.getItem('customerLoggedIn') === 'true') {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

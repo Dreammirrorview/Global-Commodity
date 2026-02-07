@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration - Global Commodity Market</title>
+    <link rel="stylesheet" href="../styles/customer.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-card">
+            <div class="register-header">
+                <span class="logo-icon">🌾</span>
+                <h1>Create Your Account</h1>
+                <p>Join Global Commodity Market for Indigenous Nigeria</p>
+                <p class="admin-note">⚠️ Note: Account registration requires admin approval</p>
+            </div>
+            
+            <form id="registerForm" class="register-form">
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required 
+                                   placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required 
+                                   placeholder="Enter your email">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required 
+                                   placeholder="Enter your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="dateOfBirth">Date of Birth</label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Account Security</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+                            <input type="password" id="password" name="password" required 
+                                   placeholder="Create a password" minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password *</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required 
+                                   placeholder="Confirm your password" minlength="6">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Bank Information</h3>
+                    <div class="form-group">
+                        <label for="bankName">Bank Name *</label>
+                        <select id="bankName" name="bankName" required>
+                            <option value="">Select your bank</option>
+                            <option value="Access Bank">Access Bank</option>
+                            <option value="First Bank">First Bank</option>
+                            <option value="Guaranty Trust Bank">Guaranty Trust Bank (GTB)</option>
+                            <option value="United Bank for Africa">United Bank for Africa (UBA)</option>
+                            <option value="Zenith Bank">Zenith Bank</option>
+                            <option value="Wema Bank">Wema Bank</option>
+                            <option value="Sterling Bank">Sterling Bank</option>
+                            <option value="Fidelity Bank">Fidelity Bank</option>
+                            <option value="Union Bank">Union Bank</option>
+                            <option value="EcoBank">EcoBank</option>
+                            <option value="Opay">Opay</option>
+                            <option value="PalmPay">PalmPay</option>
+                            <option value="Moniepoint">Moniepoint</option>
+                            <option value="Kuda Bank">Kuda Bank</option>
+                            <option value="Carbon">Carbon</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="accountNumber">Account Number *</label>
+                            <input type="text" id="accountNumber" name="accountNumber" required 
+                                   placeholder="Enter your account number" pattern="[0-9]{10}" maxlength="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="accountName">Account Name *</label>
+                            <input type="text" id="accountName" name="accountName" required 
+                                   placeholder="Enter account name">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Address Information</h3>
+                    <div class="form-group">
+                        <label for="address">Residential Address *</label>
+                        <input type="text" id="address" name="address" required 
+                               placeholder="Enter your full address">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="state">State *</label>
+                            <input type="text" id="state" name="state" required 
+                                   placeholder="Enter your state">
+                        </div>
+                        <div class="form-group">
+                            <label for="lga">Local Government Area</label>
+                            <input type="text" id="lga" name="lga" 
+                                   placeholder="Enter your LGA">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="terms-section">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span>I agree to the <a href="#" onclick="showTerms()">Terms and Conditions</a></span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-register">
+                    <span>📝</span> Submit Registration Request
+                </button>
+            </form>
+            
+            <div class="register-footer">
+                <p>Already have an account? <a href="login.html" class="login-link">Login here</a></p>
+                <a href="../admin/cover.html" class="back-link">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate passwords match
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please try again.');
+                return;
+            }
+            
+            // Check if email already exists
+            const customers = JSON.parse(localStorage.getItem('pendingRegistrations') || '[]');
+            const existingEmail = customers.find(c => c.email === document.getElementById('email').value);
+            
+            if (existingEmail) {
+                alert('This email is already registered. Please use a different email or login.');
+                return;
+            }
+            
+            // Create registration request
+            const registration = {
+                id: Date.now().toString(),
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                dateOfBirth: document.getElementById('dateOfBirth').value,
+                password: password, // In production, this should be hashed
+                bankName: document.getElementById('bankName').value,
+                accountNumber: document.getElementById('accountNumber').value,
+                accountName: document.getElementById('accountName').value,
+                address: document.getElementById('address').value,
+                state: document.getElementById('state').value,
+                lga: document.getElementById('lga').value,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+            
+            // Save to pending registrations
+            customers.push(registration);
+            localStorage.setItem('pendingRegistrations', JSON.stringify(customers));
+            
+            alert('Registration request submitted successfully! Please wait for admin approval. You will be notified once your account is activated.');
+            
+            // Reset form
+            document.getElementById('registerForm').reset();
+            
+            // Redirect to login page after 3 seconds
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 3000);
+        });
+
+        function showTerms() {
+            alert('Terms and Conditions:\n\n1. By registering, you agree to use the platform for legitimate trading purposes only.\n2. All transactions are final and subject to review.\n3. The platform reserves the right to suspend accounts with suspicious activity.\n4. Users must provide accurate information at all times.\n5. Any fraudulent activity will result in immediate account termination.\n\nFor full terms and conditions, please contact our support team.');
+        }
+
+        // Check if already logged in
+        if (localStorage.getItem('customerLoggedIn') === 'true') {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>
